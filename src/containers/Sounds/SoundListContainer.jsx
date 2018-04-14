@@ -2,15 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getCurrentSpaceObj } from '../Spaces/utils';
 import SoundListItem from '../../components/Sounds/SoundListItem';
-import { selectSound } from '../../containers/Sounds/actions';
+import { selectSound, deselectSound, toggleHoveringSound } from '../../containers/Sounds/actions';
 import { playAudio, stopAudio } from '../Audio/actions';
-import { toggleHoveringSound } from '../Sounds/actions';
-// import actions here
 
 const propTypes = {
   space: React.PropTypes.object,
   sounds: React.PropTypes.object,
   selectSound: React.PropTypes.func,
+  deselectSound: React.PropTypes.func,
   playAudio: React.PropTypes.func,
   stopAudio: React.PropTypes.func,
   toggleHoveringSound: React.PropTypes.func,
@@ -33,6 +32,7 @@ const SoundListContainer = props =>
             space={props.space}
             sounds={props.sounds}
             selectSound={props.selectSound}
+            deselectSound={props.deselectSound}
             playAudio={props.playAudio}
             stopAudio={props.stopAudio}
             toggleHoveringSound={props.toggleHoveringSound}
@@ -52,6 +52,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   selectSound,
+  deselectSound,
   playAudio,
   stopAudio,
   toggleHoveringSound,
