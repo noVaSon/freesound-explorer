@@ -1,11 +1,11 @@
 import React from 'react';
 import './SoundListTab.scss';
-import SoundListContainer from '../../containers/Sounds/SoundListContainer';
+import SoundListWrapper from '../../components/Sounds/SoundListWrapper';
 import baseTab from './BaseTab';
 
 const SoundListTab = () => (
     <div className="soundlist-container">
-      <SoundListContainer/>
+      <SoundListWrapper/>
     </div>
     );
 
