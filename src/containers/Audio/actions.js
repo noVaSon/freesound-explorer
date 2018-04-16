@@ -56,6 +56,7 @@ export const playAudio =
         const sourceNodeKey = customSourceNodeKey || Object.keys(playingSourceNodes).length;
         dispatch(getSoundBuffer(sound.id, buffer));
         dispatch(addAudioSource(sourceNodeKey, source, sourceGainNode, sound.id));
+        // FIX: calls STOP_AUDIO_SRC a second time when sounds are manually ended
         source.onended = () => {
           dispatch(stopAudioSrc(sourceNodeKey, sound.id, onEnded));
           if (onEnded) onEnded();
