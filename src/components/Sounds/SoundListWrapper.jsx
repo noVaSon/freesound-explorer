@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getCurrentSpaceObj } from '../../containers/Spaces/utils';
 import SoundList from '../../containers/Sounds/SoundList';
-import { selectSound, deselectSound, toggleHoveringSound } from '../../containers/Sounds/actions';
-import { playAudio, stopAudio } from '../../containers/Audio/actions';
 
 const propTypes = {
   space: React.PropTypes.object,
@@ -34,7 +32,7 @@ SoundListWrapper.propTypes = propTypes;
 function mapStateToProps(state) {
   const space = getCurrentSpaceObj(state.spaces.spaces, state.spaces.currentSpace);
   return {
-    space
+    space,
   };
 }
 
