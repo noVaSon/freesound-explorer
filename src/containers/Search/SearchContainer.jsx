@@ -9,10 +9,13 @@ import { debounce } from 'lodash';
 import { updateSorting, updateDescriptor, updateMinDuration, updateMaxDuration,
   updateMaxResults, updateQuery }
   from './actions';
+
+// 00 central function for getting a resoponse from Freesound.org
 import { getSounds, getResultsCount } from '../Sounds/actions';
 import { setExampleQueryDone } from '../Sidebar/actions';
 import { randomQuery } from '../../utils/randomUtils';
 
+// 03 validate types
 const propTypes = {
   maxResults: PropTypes.number,
   maxDuration: PropTypes.number,
@@ -34,6 +37,7 @@ const propTypes = {
 };
 
 class QueryBox extends React.Component {
+  // TODO Add "new space" button to differentiate between rearrangement and new query
   constructor(props) {
     super(props);
     this.submitQuery = this.submitQuery.bind(this);
@@ -68,12 +72,14 @@ class QueryBox extends React.Component {
 
   submitQuery() {
     document.getElementsByClassName('active')[1].focus();
+    // 05 copies props from state
     let { query } = this.props;
     const { sorting, descriptor, maxResults, minDuration, maxDuration } = this.props;
     const queryParams = { sorting, descriptor, maxResults, minDuration, maxDuration };
     if (!query.length) {
       query = randomQuery();
     }
+    // 07 prepare imported function to use parameters in props (from state)
     this.props.getSounds(query, queryParams);
   }
 
@@ -82,14 +88,18 @@ class QueryBox extends React.Component {
       <form
         id="query-form"
         className="QueryForm"
+
+        // 04 send request with all parameters to FS
         onSubmit={(evt) => {
           evt.preventDefault();
           this.submitQuery();
         }}
       >
         <InputTextButton
+        // TODO: allow text based interacive filtering
           onTextChange={(evt) => {
             const query = evt.target.value;
+            // 02 updates state with entered query
             this.props.updateQuery(query);
             // makes a reqest to freesound for each keystroke to get number of possible results
             if (query != false) {
@@ -105,6 +115,7 @@ class QueryBox extends React.Component {
           onChange={(evt) => {
             const descriptor = evt.target.value;
             this.props.updateDescriptor(descriptor);
+            // TODO: make view rearrangeable by descriptor
           }}
           options={[{ value: 'lowlevel.mfcc.mean', name: 'Timbre' },
             { value: 'tonal.hpcp.mean', name: 'Tonality' }]}
@@ -113,6 +124,7 @@ class QueryBox extends React.Component {
           defaultValue={this.props.descriptor}
         />
         <SelectWithLabel
+        // TODO: clarify role of sort-by -> does not appy to rearrangement because of API usage
           onChange={(evt) => {
             const sorting = evt.target.value;
             this.props.updateSorting(sorting);
@@ -136,6 +148,7 @@ class QueryBox extends React.Component {
           onChange={(evt) => {
             const maxResults = evt.target.value;
             this.props.updateMaxResults(maxResults);
+            // TODO: receive all sounds <30s and filter only display
           }}
           currentValue={this.props.maxResults}
           tabIndex="0"
@@ -173,9 +186,14 @@ const mapStateToProps = (state) => {
       currentQuery = currentSpace.query;
     }
   }
+  // 05 the state.search object includes search.query
   return Object.assign({}, { isExampleQueryDone, currentQuery }, state.search);
 };
 
+/*
+* 01 pass the imported functions and variables
+* into the react component as props
+*/
 QueryBox.propTypes = propTypes;
 export default connect(mapStateToProps, {
   getSounds,
