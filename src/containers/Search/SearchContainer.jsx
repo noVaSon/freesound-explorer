@@ -11,7 +11,7 @@ import { updateSorting, updateDescriptor, updateMinDuration, updateMaxDuration,
   from './actions';
 import { getSounds, getResultsCount } from '../Sounds/actions';
 import { setExampleQueryDone } from '../Sidebar/actions';
-import { randomQuery } from '../../utils/randomUtils';
+import { randomQuery } from './utils';
 
 const propTypes = {
   maxResults: PropTypes.number,

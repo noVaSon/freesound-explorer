@@ -95,3 +95,8 @@ export const MIN_CLUSTERS_PER_SCAN = 3;
 export const MAX_CLUSTERS_PER_SCAN = 8;
 export const MIN_CLUSTERS_RATIO = 0.07;
 export const MAX_CLUSTERS_RATIO = 0.166; // max one cluster per 6 Sounds = 1/6
+export const DEFAULT_QUERY_TERMS = [
+  'special', 'bright', 'dull', 'metal', 'cow', 'dog -wolf', 'instruments',
+  'car', 'door', 'gun', 'drums', 'scratch', 'laser', 'cat', 'percussion',
+  'cartoon', 'arrow',
+];
