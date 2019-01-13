@@ -100,3 +100,22 @@ const entrySatisfiesSearch = (entry, search, nameKey, aliasesKey) => {
 export const robustSearch = (searchInput, items, nameKey = 'name', aliasesKey) => {
   return items.filter(item => entrySatisfiesSearch(item, searchInput, nameKey, aliasesKey));
 };
+
+export const changeArrayOfStringsToLowerCase = (arr) => {
+  return arr.map(entry => entry.toLowerCase());
+};
+
+export const countOccurrencesOfEntries = (arr) => {
+  /*
+  *   Works only for non-nested arrays with strings only
+  */
+  const occurrences = {};
+  arr.forEach(entry => {
+    if (!occurrences[entry]) {
+      occurrences[entry] = 1;
+    } else {
+      occurrences[entry] += 1;
+    }
+  });
+  return occurrences;
+};

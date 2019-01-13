@@ -100,3 +100,20 @@ describe('array utils', () => {
     });
   });
 });
+
+describe('changeArrayOfStringsToLowerCase', () => {
+  const testArray1 = ['Aa!2 bcD', '2bB'];
+  const expectedOutput1 = ['aa!2 bcd', '2bb'];
+  it('works as expected with vaild input', () => {
+    expect(utils.changeArrayOfStringsToLowerCase(testArray1)).toEqual(expectedOutput1);
+  });
+});
+
+describe('countOccurrencesOfEntries', () => {
+  const testArray1 = ['one', 'two', 'two'];
+  const expectedOutput1 = { one: 1, two: 2 };
+  it('counts ocurrences of strings in an array in an object with the string as key', () => {
+    expect(utils.countOccurrencesOfEntries(testArray1)).toEqual(expectedOutput1);
+  // TODO: test for other entries than strings (used as keys!!) or change name
+  });
+});

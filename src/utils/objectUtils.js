@@ -58,3 +58,23 @@ export const getPropertyArrayOfDictionaryEntries = (dictionary, propertyName) =>
   );
   return valueArray;
 };
+
+export const isObjectNotEmpty = (obj) => {
+  return obj ? Boolean(Object.entries(obj).length) : false;
+};
+
+export const removeObjEntriesWithValueBelow = (dictObj, minLength) => {
+  const returnObj = {};
+  if (isObjectNotEmpty(dictObj)) {
+    Object.keys(dictObj).forEach(key => {
+      if (Number(dictObj[key]) >= Number(minLength)) {
+        Object.assign(returnObj, { [key]: dictObj[key] });
+      }
+    });
+  }
+  return returnObj;
+};
+
+export const castObjKeysToDescendingArraySortedByValue = (obj) => {
+  return Object.keys(obj).sort((a, b) => Number(obj[b]) - Number(obj[a]));
+};

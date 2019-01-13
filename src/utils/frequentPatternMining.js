@@ -1,7 +1,9 @@
+import { removeObjEntriesWithValueBelow, castObjKeysToDescendingArraySortedByValue } from './objectUtils';
+import { changeArrayOfStringsToLowerCase, countOccurrencesOfEntries } from './arrayUtils';
 
 // modified version of https://codepen.io/ccallen001/pen/YGOzRA
-function mostFreqStr(arr, clusterSize) {
-  // returns most frequent keys descending by values
+const mostFreqStr = (arr, clusterSize) => {
+  // TODO: re-factor ErrorHandling
 
   // ERROR HANDLING
   // more than one argument passed
@@ -16,27 +18,11 @@ function mostFreqStr(arr, clusterSize) {
     }
   }
 
-  const obj = {};
-  // convert all strings to lower case
-  const lcArr = [];
-  arr.forEach(e => lcArr.push(e.toLowerCase()));
-  // count occurencies
-  lcArr.forEach(ea => {
-    if (!obj[ea]) {
-      obj[ea] = 1;
-    } else {
-      obj[ea] += 1;
-    }
-  });
+  const lcArr = changeArrayOfStringsToLowerCase(arr);
+  const countObj = countOccurrencesOfEntries(lcArr);
+  const prunedObj = removeObjEntriesWithValueBelow(countObj, Math.log(clusterSize));
 
-  // remove entries with less than 3 occurencies
-  Object.entries(obj).forEach(e => {
-    if (e[1] <= Math.log(clusterSize)) {
-      delete obj[e[0]];
-    }
-  });
-  // return array descending
-  return Object.keys(obj).sort((a, b) => obj[b] - obj[a]);
+  return castObjKeysToDescendingArraySortedByValue(prunedObj);
 }
 
 export const frequentPatterns = (transactions, rawQuery) => {
