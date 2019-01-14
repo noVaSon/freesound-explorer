@@ -110,3 +110,30 @@ export const LICENSE_ABBREVIATION_OBJECT = {
   'by-sa' : 'CC BY-SA',
   'by-nd' : 'CC BY-ND',
 };
+
+export const SOUND_LIST_COLUMNS = 
+  [
+    {
+      Header: 'Name',
+      accessor: 'name', // String-based value accessors for obj props!
+      minWidth: 275,
+    }, {
+      Header: 'Duration',
+      accessor: 'durationfixed',
+      width: 70,
+    },
+    {
+      Header: 'License',
+      accessor: 'licenseShort',
+      minWidth: 150,
+    },
+    {
+      Header: 'Tags',
+      accessor: 'tagsStr',
+      minWidth: 400,
+    },
+    {
+      Header: 'Username',
+      accessor: 'username',
+    },
+  ];

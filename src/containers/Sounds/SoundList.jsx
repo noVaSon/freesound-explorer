@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { lighten } from 'utils/colorsUtils';
+import { SOUND_LIST_COLUMNS } from '../../constants.js';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import '../../stylesheets/react-table.css';
@@ -37,32 +38,7 @@ class SoundList extends React.Component {
 
   render() {
     const data = this.props.sounds;
-
-    const columns = [{
-      Header: 'Name',
-      accessor: 'name', // String-based value accessors!
-      minWidth: 275,
-    }, {
-      Header: 'Duration',
-      accessor: 'durationfixed',
-      width: 70,
-    },
-    {
-      Header: 'License',
-      accessor: 'licenseShort',
-      minWidth: 150,
-    },
-    {
-      Header: 'Tags',
-      accessor: 'tagsStr',
-      minWidth: 400,
-    },
-    {
-      Header: 'Username',
-      accessor: 'username',
-    },
-    ];
-
+    const columns = SOUND_LIST_COLUMNS;
     return (
       <ReactTable
         key="react-table-soundlist"
@@ -73,17 +49,10 @@ class SoundList extends React.Component {
         style={{
           height: '595px', // This will force the table body to overflow and scroll, since there is not enough room
         }}
-        defaultSorted={[
-          {
-            id: 'name',
-            desc: false,
-          },
-        ]}
+        defaultSorted={[{ id: 'name', desc: false, }]}
         columns={columns}
 
-
         // ******* styling & behaviour ********
-
         getTheadProps={() => {
           return {
             style: {
