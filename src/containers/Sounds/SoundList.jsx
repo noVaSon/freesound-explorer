@@ -10,21 +10,21 @@ import { reshapeSoundListData } from '../../containers/Sounds/utils';
 import { playAudio, stopAudio } from '../../containers/Audio/actions';
 
 const propTypes = {
-  sounds: PropTypes.array,
   space: PropTypes.object,
-  selectedSounds: PropTypes.array,
   hoveredSounds: PropTypes.array,
-  selectSound: PropTypes.func,
+  selectedSounds: PropTypes.array,
+  sounds: PropTypes.array,
+  shouldPlayOnHover: PropTypes.bool,
+  shouldMultiSelect: PropTypes.bool,
   deselectSound: PropTypes.func,
   deselectAllSounds: PropTypes.func,
+  selectSound: PropTypes.func,
   playAudio: PropTypes.func,
   stopAudio: PropTypes.func,
   toggleHoveringSound: PropTypes.func,
-  shouldPlayOnHover: PropTypes.bool,
-  shouldMultiSelect: PropTypes.bool,
 };
 
-// TODO: use responsive table heigth 
+// TODO: use responsive table height 
 class SoundList extends React.Component {
 
   shouldComponentUpdate(nextProps) {
@@ -49,7 +49,7 @@ class SoundList extends React.Component {
     },
     {
       Header: 'License',
-      accessor: 'shortLicense',
+      accessor: 'licenseShort',
       minWidth: 150,
     },
     {

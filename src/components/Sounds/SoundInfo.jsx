@@ -3,27 +3,27 @@ import PropTypes from 'prop-types';
 import { midiNoteNumberToMidiNoteLabel } from 'containers/Midi/utils';
 import './SoundInfo.scss';
 import Waveform from '../Waveform';
-import { downloadSound } from '../../containers/SoundInfo/actions';
 
 const propTypes = {
-  isVisible: PropTypes.bool,
-  isMidiSupported: PropTypes.bool,
-  sound: PropTypes.object,
-  position: PropTypes.object,
-  direction: PropTypes.string,
-  isUserLoggedIn: PropTypes.bool,
-  setSoundCurrentlyLearnt: PropTypes.func,
-  soundCurrentlyLearnt: PropTypes.string,
   notesMapped: PropTypes.object,
+  position: PropTypes.object,
+  sound: PropTypes.object,
+  isMidiSupported: PropTypes.bool,
+  isUserLoggedIn: PropTypes.bool,
+  isVisible: PropTypes.bool,
+  direction: PropTypes.string,
   selectedPath: PropTypes.string,
+  soundCurrentlyLearnt: PropTypes.string,
   addSoundToPath: PropTypes.func,
   bookmarkSound: PropTypes.func,
   downloadSound: PropTypes.func,
+  setSoundCurrentlyLearnt: PropTypes.func,
 };
 
 const DEFAULT_CLASSNAME = 'sound-info-modal';
 
 class SoundInfo extends React.Component {
+
   getClassName() {
     if (!this.props.isVisible) {
       return DEFAULT_CLASSNAME;
@@ -111,29 +111,15 @@ class SoundInfo extends React.Component {
     );
   }
 
-  getLicenseLabel() {
-    switch (this.props.sound.license) {
-      case 'http://creativecommons.org/publicdomain/zero/1.0/':
-        return 'CC0';
-      case 'http://creativecommons.org/licenses/by/3.0/':
-        return 'CC-BY';
-      case 'http://creativecommons.org/licenses/by-nc/3.0/':
-        return 'CC-BY-NC';
-      case 'http://creativecommons.org/licenses/sampling+/1.0/':
-        return 'S+';
-      default:
-        return '-';
-    }
-  }
-
   render() {
+    debugger
     const userButtons = this.getUserButtons();
     return (
       <div className={this.getClassName()} style={this.getPosition()}>
         <a href={this.props.sound.url} target="_blank" rel="noopener noreferrer">
           <div className="sound-info-modal-title">
             <div>{this.props.sound.name}</div>
-            <div>by {this.props.sound.username} ({this.getLicenseLabel()})</div>
+            <div>by {this.props.sound.username} ({this.props.sound.licenseShort})</div>
           </div>
         </a>
         <div className="sound-info-modal-content">

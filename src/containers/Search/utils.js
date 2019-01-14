@@ -1,7 +1,7 @@
-import { DEFAULT_MAX_RESULTS, DEFAULT_SORTING } from 'constants';
 import freesound from 'vendors/freesound';
 import { rgbToHex } from 'utils/colorsUtils';
-import { randomQuery } from '../../utils/randomUtils';
+import { shortenCreativeCommonsLicense } from '../Sounds/utils';
+
 
 function getRequestParameter(name, queryUrl = location.search) {
   const parsedRegex = (new RegExp(
@@ -67,7 +67,6 @@ export function submitQuery(submittedQuery, maxResults, maxDuration, sorting) {
     query = query2;
     filter = filter2;
   } else {
-    // Standard query
     const parsedMaxDuration = parseInt(maxDuration, 10);
     filter = `duration:[0%20TO%20${parsedMaxDuration}]`;
     query = submittedQuery;
@@ -80,6 +79,7 @@ const reshapePageResults = (pageResults, queryID) => {
   return results.reduce((curState, curSound, curIndex) => {
     const { analysis, url, name, username, duration, license,
             tags, similar_sounds } = curSound;
+    const licenseShort = shortenCreativeCommonsLicense(license);
     const downloadUrl = curSound.download;
     const id = `${curSound.id}-${queryID}`;
     const previewUrl = curSound.previews['preview-lq-mp3'];
@@ -108,6 +108,7 @@ const reshapePageResults = (pageResults, queryID) => {
           color,
           username,
           license,
+          licenseShort,
           tags,
           duration, // Will be updated once sound is loaded to buffer
           bookmark,

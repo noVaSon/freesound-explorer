@@ -100,3 +100,13 @@ export const DEFAULT_QUERY_TERMS = [
   'car', 'door', 'gun', 'drums', 'scratch', 'laser', 'cat', 'percussion',
   'cartoon', 'arrow',
 ];
+
+// sound-list
+export const LICENSE_ABBREVIATION_OBJECT = {
+  'by': 'CC BY',
+  'zero' : 'CC0',
+  'by-nc' : 'CC BY-NC',
+  'sampling+' : 'Sampling Plus',
+  'by-sa' : 'CC BY-SA',
+  'by-nd' : 'CC BY-ND',
+};

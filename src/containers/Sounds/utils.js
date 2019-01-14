@@ -1,4 +1,8 @@
-import { MAP_SCALE_FACTOR, TSNE_CONFIG, DEFAULT_DESCRIPTOR }
+import {
+  MAP_SCALE_FACTOR,
+  TSNE_CONFIG,
+  DEFAULT_DESCRIPTOR,
+  LICENSE_ABBREVIATION_OBJECT }
   from 'constants';
 import { readObjectPropertyByPropertyAbsName } from 'utils/objectUtils';
 import tsnejs from 'vendors/tsne';
@@ -46,6 +50,7 @@ const getSoundSpacePosition = (sound, store) => {
 };
 
 export const computePointsPositionInSolution = (tsne, sounds, store) => {
+  // TODO: refactor reduce to new func and rename
   const tsneSolution = tsne.getSolution();
   return Object.keys(sounds).reduce((curState, curSoundID, curIndex) => {
     const sound = sounds[curSoundID];
@@ -84,6 +89,14 @@ export const isSoundInsideScreen = (position, isThumbnail = false) => {
   return !(isVerticallyOutOfScreen || isHorizontallyOutOfScreen);
 };
 
+
+export const shortenCreativeCommonsLicense = licenseUri => {
+  const licenseSplit = licenseUri ? licenseUri.split('/') : undefined;
+  const license = licenseSplit ? LICENSE_ABBREVIATION_OBJECT[licenseSplit[4]] || '-' : '-';
+  const version = (license !== '-') ? licenseSplit[5] : '';
+  return [license, version].join(' ').trim();
+};
+
 export const reshapeSoundListData = (sounds, selectedSounds) => {
   const data = [];
 
@@ -91,38 +104,11 @@ export const reshapeSoundListData = (sounds, selectedSounds) => {
   Object.keys(sounds)
     .forEach((id) => {
       // copy sound here, so redux state remains uncanged!
-      const { license, tags, name, username, duration, isPlaying, isHovered, color } = sounds[id];
-      const sound = { id, license, tags, name, username, duration, isPlaying, isHovered, color };
+      const { licenseShort, tags, name, username, duration, isPlaying, isHovered, color } = sounds[id];
+      const sound = { id, licenseShort, tags, name, username, duration, isPlaying, isHovered, color };
       // format data fields
       if (sound.duration) {
         sound.durationfixed = sound.duration.toFixed(2);
-      }
-      if (sound.license) {
-        switch (sound.license) {
-          case 'http://creativecommons.org/licenses/by/3.0/':
-            sound.shortLicense = 'CC BY 3.0';
-            break;
-          case 'http://creativecommons.org/publicdomain/zero/1.0/':
-            sound.shortLicense = 'CC0 1.0';
-            break;
-          case 'http://creativecommons.org/licenses/by-nc/3.0/':
-            sound.shortLicense = 'CC BY-NC 3.0';
-            break;
-          case 'http://creativecommons.org/licenses/by-nc/4.0/':
-            sound.shortLicense = 'CC BY-NC 4.0';
-            break;
-          case 'http://creativecommons.org/licenses/sampling+/1.0/':
-            sound.shortLicense = 'Sampling Plus 1.0';
-            break;
-          case 'http://creativecommons.org/licenses/by-sa/4.0/':
-            sound.shortLicense = 'CC BY-SA 4.0';
-            break;
-          case 'http://creativecommons.org/licenses/by-nd/4.0/':
-            sound.shortLicense = 'CC BY-ND 4.0';
-            break;
-          default:
-            sound.shortLicense = 'not specified!';
-        }
       }
       if (sound.tags) {
         // sort array lexically, ignoring case
@@ -138,3 +124,4 @@ export const reshapeSoundListData = (sounds, selectedSounds) => {
     });
   return data;
 };
+
