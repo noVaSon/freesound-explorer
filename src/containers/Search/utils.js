@@ -1,7 +1,13 @@
+import { DEFAULT_MAX_RESULTS, DEFAULT_SORTING, DEFAULT_QUERY_TERMS } from 'constants';
 import freesound from 'vendors/freesound';
 import { rgbToHex } from 'utils/colorsUtils';
+import { getRandomElement } from 'utils/arrayUtils';
 import { shortenCreativeCommonsLicense } from '../Sounds/utils';
 
+
+export const randomQuery = () => {
+  return getRandomElement(DEFAULT_QUERY_TERMS);
+};
 
 function getRequestParameter(name, queryUrl = location.search) {
   const parsedRegex = (new RegExp(

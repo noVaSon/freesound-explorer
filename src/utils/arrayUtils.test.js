@@ -114,6 +114,5 @@ describe('countOccurrencesOfEntries', () => {
   const expectedOutput1 = { one: 1, two: 2 };
   it('counts ocurrences of strings in an array in an object with the string as key', () => {
     expect(utils.countOccurrencesOfEntries(testArray1)).toEqual(expectedOutput1);
-  // TODO: test for other entries than strings (used as keys!!) or change name
   });
 });
