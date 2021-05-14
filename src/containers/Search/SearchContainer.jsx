@@ -61,16 +61,16 @@ class QueryBox extends Component {
     }
   }
 
-  tryQueryAtMount() {
+  tryQueryAtMount = () => {
     if (sessionStorage.getItem('appToken')) {
       this.submitQuery();
       this.props.setExampleQueryDone();
     } else {
       setTimeout(this.tryQueryAtMount, 500);
     }
-  }
+  };
 
-  submitQuery() {
+  submitQuery = () => {
     document.getElementsByClassName('active')[1].focus();
     // 05 copies props from state
     let { query } = this.props;
@@ -81,7 +81,7 @@ class QueryBox extends Component {
     }
     // 07 prepare imported function to use parameters in props (from state)
     this.props.getSounds(query, queryParams);
-  }
+  };
 
   render() {
     return (
