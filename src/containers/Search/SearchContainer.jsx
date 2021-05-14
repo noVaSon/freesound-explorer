@@ -44,7 +44,7 @@ class QueryBox extends React.Component {
     this.tryQueryAtMount = this.tryQueryAtMount.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // prevents too many requests to FS server
     this._debouncedResultsCount = debounce(this.props.getResultsCount.bind(this), 400, {
       leading: false,
