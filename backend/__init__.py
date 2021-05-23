@@ -20,7 +20,7 @@ app.config.from_object('backend.settings')
 
 if APPLICATION_ROOT:
     from werkzeug.serving import run_simple
-    from werkzeug.wsgi import DispatcherMiddleware
+    from werkzeug.middleware.dispatcher import DispatcherMiddleware
     app.wsgi_app = DispatcherMiddleware(Flask('dummy_app'), {APPLICATION_ROOT: app.wsgi_app})
 
 
